@@ -1,0 +1,1237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+}
+
+html {
+    font-size: 10px;
+}
+
+img,
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/*====== HEADER + NAV ======*/
+.header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5vw;
+    height: auto;
+    align-items: center;
+    background-color: #990000;
+}
+
+.header-top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.header .logo img {
+    height: 50px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.header .logo img:hover {
+    transform: scale(1.1);
+}
+
+.header .logo {
+    list-style: none;
+}
+
+.header .nav-links {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.header .nav-links li {
+    display: block;
+    padding: 5px 0;
+}
+
+.header .nav-links a {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+}
+
+.header .nav-links li a:hover {
+    color: white;
+    background-color: #117538;
+    border-radius: 15px;
+}
+
+.header .btn button {
+    font-weight: 700;
+    color: white;
+    padding: 9px 25px;
+    background-color: #117538;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3 ease 0s;
+    font-size: 15px;
+    transition: all 0.3s ease 0s;
+}
+
+.header .btn button:hover {
+    transform: scale(1.1);
+}
+
+/* ====== SLIDER PARA HASIERA.HTML (ANTIGUO) ====== */
+.container .slider-wrapper:not(.nuevo-slider) {
+    position: relative;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 5vw;
+    box-sizing: content-box;
+    scroll-margin-top: 0;
+}
+
+.container .slider-wrapper:not(.nuevo-slider) .slider {
+    display: flex;
+    aspect-ratio: 16/9;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    box-shadow: 0 4px 8px #21212126;
+    border-radius: 12px;
+    border: 10px solid #117538;
+}
+
+.container .slider-wrapper:not(.nuevo-slider) .slider img {
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+}
+
+.container .slider-wrapper:not(.nuevo-slider) .slider-nav {
+    display: flex;
+    column-gap: 16px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.container .slider-wrapper:not(.nuevo-slider) .slider-nav a {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    opacity: .75;
+    transition: opacity ease 250ms;
+    background-color: white;
+    display: block;
+}
+
+.container .slider-wrapper:not(.nuevo-slider) .slider-nav a:hover {
+    opacity: 1;
+    background-color: #990000;
+}
+
+/* ====== SLIDER NUEVO PARA BERRIAK.HTML ====== */
+.nuevo-slider-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 10px solid #117538;
+}
+
+.nuevo-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 400px;
+}
+
+.nuevo-slide {
+    width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    height: 100%;
+}
+
+.nuevo-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-prev {
+    left: 20px;
+}
+
+.slider-next {
+    right: 20px;
+}
+
+.nuevo-slider-text-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 25px;
+    padding-bottom: 60px;
+    z-index: 5;
+}
+
+.nuevo-slider-text-area h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.nuevo-slider-text-area p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: white;
+}
+
+.nuevo-slider-nav-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 6;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 0;
+}
+
+.slider-dot.active {
+    background-color: white;
+}
+
+.slider-dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive para nuevo slider */
+@media (max-width: 768px) {
+    .nuevo-slider {
+        height: 300px;
+    }
+
+    .nuevo-slider-text-area h3 {
+        font-size: 1.4rem;
+    }
+
+    .nuevo-slider-text-area p {
+        font-size: 0.9rem;
+    }
+
+    .slider-arrow {
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .slider-prev {
+        left: 10px;
+    }
+
+    .slider-next {
+        right: 10px;
+    }
+}
+
+/* MEDIA QUERY ESCRITORIO */
+@media (min-width: 769px) {
+    .header {
+        flex-direction: row;
+        padding: 5px 10%;
+        height: 85px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-top {
+        display: contents;
+    }
+
+    .header .logo img {
+        height: 70px;
+    }
+
+    .header .nav-links {
+        display: block;
+        width: auto;
+        padding: 0;
+        text-align: left;
+        margin: 0 auto;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .header .nav-links li {
+        display: inline-block;
+        padding: 0 20px;
+    }
+
+    .header .btn {
+        padding-top: 0;
+    }
+}
+
+/* ====== TALDEAK.HTML ESTILOS ====== */
+.teams-section {
+    padding: 40px 5vw;
+    background-color: #f5f5f5;
+}
+
+.container-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    color: #990000;
+    margin-bottom: 40px;
+    font-weight: 800;
+}
+
+.team-card {
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+    height: 250px;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.team-image-container {
+    position: relative;
+    width: 30%;
+    flex-shrink: 0;
+}
+
+.team-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(153, 0, 0, 0.9);
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    z-index: 2;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.team-image-container:hover .team-name {
+    opacity: 1;
+}
+
+.team-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.team-info {
+    flex-grow: 1;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #eee;
+}
+
+.team-info p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.team-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    width: 200px;
+    flex-shrink: 0;
+    background-color: #f9f9f9;
+}
+
+.btn-team {
+    background-color: #117538;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    font-size: 1.4rem;
+}
+
+.btn-team:hover {
+    background-color: #0d5a2b;
+    transform: scale(1.05);
+}
+
+/* Responsive para Taldeak */
+@media (max-width: 900px) {
+    .team-card {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .team-image-container {
+        width: 100%;
+        height: 250px;
+    }
+
+    .team-info {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .team-buttons {
+        width: 100%;
+        flex-direction: row;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .team-buttons {
+        flex-direction: column;
+    }
+}
+
+/* FOOTER */
+footer {
+    background-color: #990000;
+    color: white;
+    padding: 30px 0;
+    font-size: 16px;
+}
+
+.footer-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5vw;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px 10px;
+}
+
+.footer-section h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #37d674;
+}
+
+.footer-section p {
+    margin-bottom: 5px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    line-height: 1.8;
+}
+
+.footer-section a:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.icon-small {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.icon-small:hover {
+    transform: scale(1.15);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 30px auto 0;
+}
+
+.dev-credits {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dev-credits p,
+.footer-bottom p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer-bottom .dev-credits .contractor-logo {
+    height: 150px !important;
+    width: auto !important;
+    max-width: 400px;
+    object-fit: contain;
+    filter: invert(100%);
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        min-width: 100%;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .dev-credits {
+        justify-content: center;
+    }
+}
+
+body {
+    scroll-padding-top: 150px;
+}
+
+html {
+    scroll-padding-top: 150px;
+}
+
+/* Secciones de contenido */
+.container-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 5vw;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    color: #990000;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    display: inline-block;
+    font-weight: 700;
+    color: white;
+    padding: 12px 30px;
+    background-color: #117538;
+    border: 2px solid #117538;
+    border-radius: 50px;
+    transition: all 0.3s ease 0s;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #990000;
+    border-color: #990000;
+    transform: scale(1.05);
+}
+
+.quick-access-section {
+    padding: 50px 0;
+    background-color: #f7f7f7;
+}
+
+.quick-access-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.access-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+.access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px #990000;
+}
+
+.access-card i {
+    font-size: 40px;
+    color: #9edab5;
+    margin-bottom: 15px;
+}
+
+.access-card h3 {
+    font-size: 18px;
+    color: #990000;
+    margin-bottom: 5px;
+}
+
+.access-card p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+}
+
+.news-section {
+    padding: 60px 0;
+}
+
+.news-grid {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.news-grid-3-cols {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 30px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 999px) {
+    .news-grid-3-cols {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .news-grid-3-cols {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 1000px) {
+    .news-grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: repeat(2, minmax(150px, auto));
+    }
+
+    .featured-news {
+        grid-row: 1 / span 2;
+        display: block;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 999px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .featured-news {
+        grid-column: 1 / span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.news-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s;
+}
+
+.news-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.news-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.small-news img {
+    height: 150px;
+}
+
+.news-info {
+    padding: 15px;
+}
+
+.news-info h3,
+.news-info h4 {
+    font-family: inherit;
+    color: #212121;
+    margin: 5px 0 10px;
+}
+
+.news-info h3 {
+    font-size: 22px;
+}
+
+.news-info h4 {
+    font-size: 18px;
+}
+
+.news-category {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 50px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.category-competition {
+    background-color: #990000;
+}
+
+.category-formation {
+    background-color: #117538;
+}
+
+.category-institutional {
+    background-color: #004d99;
+}
+
+.news-info time {
+    font-size: 13px;
+    color: #777;
+    display: block;
+    margin-top: 10px;
+}
+
+.news-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Sección de patrocinadores */
+.sponsor-section {
+    padding: 40px 0 60px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.sponsor-section .container-content {
+    border: 6px solid #990000;
+    border-radius: 10px;
+    background-color: white;
+    padding: 30px 5vw;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sponsor-section .section-title {
+    margin-bottom: 20px;
+}
+
+.logo-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 200%;
+    animation: scroll-loop 30s linear infinite;
+}
+
+.logo-carousel:hover {
+    animation-play-state: paused;
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.logo-group img {
+    max-width: 150px;
+    height: 70px;
+    object-fit: contain;
+    width: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    border: none;
+    padding: 0;
+    background-color: initial;
+}
+
+.logo-group img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+@keyframes scroll-loop {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ====== SAILKAPENA.HTML ESTILOS ====== */
+.standings-section {
+    padding: 40px 5vw;
+    background-color: #f5f5f5;
+}
+
+.standings-table-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.5rem;
+}
+
+.standings-table thead {
+    background-color: #990000;
+    color: white;
+    text-align: left;
+}
+
+.standings-table th {
+    padding: 15px;
+    font-weight: 700;
+    border: 1px solid #ddd;
+}
+
+.standings-table td {
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.standings-row {
+    transition: background-color 0.3s ease;
+}
+
+.standings-row:hover {
+    background-color: #01fa0519;
+}
+
+.standings-row.top-two {
+    border-left: 5px solid #6f42c1;
+}
+
+.standings-row.last {
+    border-left: 5px solid #dc3545;
+}
+
+.position {
+    font-weight: 700;
+    color: #990000;
+    text-align: center;
+    width: 50px;
+}
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 250px;
+}
+
+.standings-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.team-cell span {
+    font-weight: 600;
+    color: #333;
+}
+
+.points {
+    font-weight: 700;
+    color: #117538;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .standings-table {
+        font-size: 1.3rem;
+    }
+
+    .standings-table th,
+    .standings-table td {
+        padding: 10px 8px;
+    }
+
+    .team-cell {
+        min-width: auto;
+        gap: 8px;
+    }
+
+    .standings-img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .standings-table {
+        font-size: 1.2rem;
+    }
+
+    .standings-table th,
+    .standings-table td {
+        padding: 8px 5px;
+    }
+
+    .standings-img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .team-cell span {
+        display: none;
+    }
+}
+
+/* ====== EGUTEGIA.HTML ESTILOS ====== */
+.schedule-section {
+    padding: 40px 5vw;
+    background-color: #f5f5f5;
+}
+
+.jornada {
+    margin-bottom: 50px;
+}
+
+.jornada-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #990000;
+    margin-bottom: 30px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #117538;
+}
+
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Busca .match-card y añade estas líneas */
+.match-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Hace que el info siempre esté abajo */
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.match-teams {
+    display: flex;
+    align-items: flex-start;
+    /* Alineamos por la parte de arriba (los escudos) */
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    ;
+}
+
+.team-match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    text-align: center;
+    min-height: 100px;
+    justify-content: flex-start;
+}
+
+.match-shield {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+.team-match span {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+}
+
+.vs {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #990000;
+    padding: 0 10px;
+    margin-top: 22px;
+}
+
+.match-info {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: #555;
+}
+
+.match-info p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.match-info i {
+    color: #117538;
+    width: 18px;
+    text-align: center;
+}
+
+
+/* ====== ESTILOS PARA LA LEYENDA (SAILKAPENA) ====== */
+.standings-legend {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+    padding: 10px 5px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.legend-bar {
+    width: 6px;
+    height: 28px;
+    border-radius: 2px;
+}
+
+.champions-bar {
+    background-color: #6f42c1; /* Color Champions */
+}
+
+.beherapena-bar {
+    background-color: #DC3545; /* Color Beherapena */
+}
+
+.legend-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #333;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .standings-legend {
+        gap: 20px;
+        justify-content: center;
+    }
+}
+@media (max-width: 768px) {
+    .matches-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .match-shield {
+        width: 50px;
+        height: 50px;
+    }
+
+    .team-match span {
+        font-size: 1.2rem;
+    }
+
+    .jornada-title {
+        font-size: 1.8rem;
+    }
+
+    .match-info {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .matches-grid {
+        gap: 15px;
+    }
+
+    .match-card {
+        border-radius: 8px;
+    }
+
+    .match-teams {
+        padding: 15px;
+    }
+
+    .match-shield {
+        width: 45px;
+        height: 45px;
+    }
+
+    .team-match span {
+        font-size: 1.1rem;
+    }
+
+    .vs {
+        font-size: 1.2rem;
+    }
+
+    .match-info {
+        padding: 12px 15px;
+        font-size: 1.2rem;
+    }
+
+    .jornada-title {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+}
