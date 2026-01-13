@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2026 a las 10:47:39
+-- Tiempo de generación: 13-01-2026 a las 11:56:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -382,6 +382,64 @@ INSERT INTO `pertsona` (`NANa`, `Izen_abizena`, `Adina`, `Helbidea`, `Tlfn`, `ta
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `sailkapena_24_25`
+--
+
+CREATE TABLE `sailkapena_24_25` (
+  `taldea` varchar(100) NOT NULL,
+  `JP` int(11) DEFAULT 0,
+  `IrP` int(11) DEFAULT 0,
+  `BerP` int(11) DEFAULT 0,
+  `GaP` int(11) DEFAULT 0,
+  `AG` int(11) DEFAULT 0,
+  `KG` int(11) DEFAULT 0,
+  `puntuak` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `sailkapena_24_25`
+--
+
+INSERT INTO `sailkapena_24_25` (`taldea`, `JP`, `IrP`, `BerP`, `GaP`, `AG`, `KG`, `puntuak`) VALUES
+('Aloña Mendi', 10, 3, 3, 4, 246, 247, 9),
+('Amezti Zarautz', 10, 7, 2, 1, 273, 243, 16),
+('Berango Urduliz', 10, 6, 1, 3, 276, 268, 13),
+('Escolapios', 10, 0, 0, 10, 233, 274, 0),
+('Kukullaga', 10, 4, 1, 5, 254, 261, 9),
+('San Adrian', 10, 5, 3, 2, 270, 259, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sailkapena_25_26`
+--
+
+CREATE TABLE `sailkapena_25_26` (
+  `taldea` varchar(100) NOT NULL,
+  `JP` int(11) DEFAULT 0,
+  `IrP` int(11) DEFAULT 0,
+  `BerP` int(11) DEFAULT 0,
+  `GaP` int(11) DEFAULT 0,
+  `AG` int(11) DEFAULT 0,
+  `KG` int(11) DEFAULT 0,
+  `puntuak` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `sailkapena_25_26`
+--
+
+INSERT INTO `sailkapena_25_26` (`taldea`, `JP`, `IrP`, `BerP`, `GaP`, `AG`, `KG`, `puntuak`) VALUES
+('Aloña Mendi', 3, 1, 2, 0, 70, 69, 4),
+('Amezti Zarautz', 3, 2, 0, 1, 84, 79, 4),
+('Berango Urduliz', 3, 1, 0, 2, 80, 75, 2),
+('Irauli Bosteko', 3, 0, 1, 2, 71, 86, 1),
+('Kukullaga', 3, 1, 1, 1, 73, 73, 3),
+('San Adrian', 3, 2, 0, 1, 79, 75, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `taldea`
 --
 
@@ -462,6 +520,18 @@ ALTER TABLE `partidua`
 --
 ALTER TABLE `pertsona`
   ADD PRIMARY KEY (`NANa`);
+
+--
+-- Indices de la tabla `sailkapena_24_25`
+--
+ALTER TABLE `sailkapena_24_25`
+  ADD PRIMARY KEY (`taldea`);
+
+--
+-- Indices de la tabla `sailkapena_25_26`
+--
+ALTER TABLE `sailkapena_25_26`
+  ADD PRIMARY KEY (`taldea`);
 
 --
 -- Indices de la tabla `taldea`
