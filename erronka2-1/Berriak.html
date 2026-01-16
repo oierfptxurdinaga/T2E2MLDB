@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="eu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EEF - Euskal Eskubaloi Federazioa</title>
+    <link rel="stylesheet" href="CSS/CSS.css">
+    <link rel="icon" href="Irudiak/Logo Actualizado.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- Orriaren goiburua: logoa, nabigazioa eta kontaktua -->
+    <header class="header">
+        <div class="logo">
+            <a href="Hasiera.html"><img src="Irudiak/Logo Actualizado.png" alt="EEF logoa"></a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="Hasiera.html">Hasiera</a></li>
+                <li><a href="Berriak.html">Berriak</a></li>
+                <li><a href="Taldeak.html">Taldeak</a></li>
+                <li><a href="Sailkapena.html">Sailkapena</a></li>
+                <li><a href="Egutegia.html">Egutegia</a></li>
+                <li><a href="Fitxaketak.html">Fitxaketak</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="btn"><button>Kontaktua</button></a>
+    </header>
+
+    <!-- SLIDER BERRIA GEZIEKIN ETA 7 IRUDIREKIN -->
+    <section class="container">
+        <div class="nuevo-slider-wrapper">
+            <button class="slider-arrow slider-prev" aria-label="Aurreko irudia">‹</button>
+
+            <div class="nuevo-slider">
+                <!-- 1. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/088bd461-bb7a-4054-b9af-9ea2ff335e57_16-9-discover-aspect-ratio_default_0_x656y380.jpg" alt="Euskadiko Selekzioa txapelketan">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Euskadiko Selekzioa</h3>
+                        <p>Gure selekzioak txapelketa bikaina egin du aurten, partida guztiak irabaziz.</p>
+                    </div>
+                </div>
+
+                <!-- 2. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/balonmano entrenamiento.jpg" alt="Entrenamendu saioa">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Prestakuntza Intentsiboa</h3>
+                        <p>Jokalarien entrenamendu saio bereziak lehen mailako prestakuntza bermatzeko.</p>
+                    </div>
+                </div>
+
+                <!-- 3. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/partido.jpg" alt="Partida garrantzitsua">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Partida Erabakigarria</h3>
+                        <p>Azken partidan 28-25 irabazi dute, finalerdietarako sailkatuz.</p>
+                    </div>
+                </div>
+
+                <!-- 4. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/jugador.jpg" alt="Jokalari ospetsua">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Jokalari Nagusia</h3>
+                        <p>Ander Martinez, 15 gol sartu ditu partida bakarrean, errekor berria ezarriz.</p>
+                    </div>
+                </div>
+
+                <!-- 5. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/balonmano niños.jpg" alt="Haur taldea">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Haur Talde Berria</h3>
+                        <p>Umeentzako eskubaloi proiektu berria aurkeztu dugu, 200 haur baino gehiagorekin.</p>
+                    </div>
+                </div>
+
+                <!-- 6. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/instalaciones.jpg" alt="Instalazio berriak">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Instalazio Berriak</h3>
+                        <p>Euskadiko eskubaloiaren garapenerako instalazio berriak inauguratu ditugu.</p>
+                    </div>
+                </div>
+
+                <!-- 7. IRUDIA -->
+                <div class="nuevo-slide">
+                    <img src="Irudiak/berriak/seleccion.jpg" alt="Nazioarteko partida">
+                    <div class="nuevo-slider-text-area">
+                        <h3>Nazioarteko Topaketa</h3>
+                        <p>Euskadiko taldea Frantziako selekzioaren aurka jokatuko du hilabidean.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-arrow slider-next" aria-label="Hurrengo irudia">›</button>
+
+            <div class="nuevo-slider-nav-dots"></div>
+        </div>
+    </section>
+
+    <!-- Berrien atala: XML-tik dinamikoki kargatzen da -->
+    <section class="news-section">
+        <div class="container-content">
+            <h2 class="section-title">Berriak</h2>
+            <div class="news-grid" id="news-container">
+                <!-- Edukia XML-tik dinamikoki kargatuko da -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Orriaren oina: kontaktua, estekak eta sare sozialak -->
+    <footer>
+        <div class="footer-container">
+
+            <div class="footer-section contact">
+                <h3 class="footer-h3">Kontaktua</h3>
+                <p>Email: info@eef.eus</p>
+                <p>Telefonoa: +34 94 000 000</p>
+                <p>Helbidea:  Ornilla Doctor Kalea 2, Otxarkoaga - Txurdinaga, 48004 <br>
+            Bilbao, Bizkaia</p>
+            </div>
+
+            <div class="footer-section links">
+                <h3 class="footer-h3">Lasterbideak</h3>
+                <ul>
+                    <li><a href="Berriak.html">Berriak</a></li>
+                    <li><a href="Taldeak.html">Taldeak</a></li>
+                    <li><a href="Sailkapena.html">Sailkapena</a></li>
+                    <li><a href="Egutegia.html">Egutegia</a></li>
+                    <li><a href="Fitxaketak.html">Fitxaketak</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section social">
+                <h3 class="footer-h3">Jarraitu Gaitzazu</h3>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><img src="Irudiak/Footer/Instagram_icon-icons.com_66804.ico"
+                            alt="Instagram" class="icon-small"></a>
+                    <a href="#" target="_blank"><img src="Irudiak/Footer/twitter_x_new_logo_x_icon_256077.ico"
+                            alt="Twitter" class="icon-small"></a>
+                    <a href="#" target="_blank"><img src="Irudiak/Footer/Facebook_icon-icons.com_66805.ico"
+                            alt="Facebook" class="icon-small"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 EEF. Eskubide guztiak erreserbatuta.</p>
+            <div class="dev-credits">
+                <p>Diseinu eta Garapena:</p>
+                <img src="Irudiak/Footer/Logo handia beltza fondo barik (3).png" alt="Logo de la Empresa Contratada"
+                    class="contractor-logo">
+            </div>
+        </div>
+    </footer>
+
+    <script src="script/main.js"></script>
+    <script src="script/slider.js"></script>
+</body>
+
+</html>
