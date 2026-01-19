@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2026 a las 11:50:52
+-- Tiempo de generación: 19-01-2026 a las 14:14:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,76 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `eskubaloi`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarClasificacion` (IN `temporada_in` VARCHAR(10))   BEGIN
+    -- Lógica para la temporada 24-25
+    IF `temporada_in` = '24-25' THEN
+        DELETE FROM `sailkapena_24_25`;
+        INSERT INTO `sailkapena_24_25` (taldea, JP, IrP, BerP, GaP, AG, KG, puntuak)
+        SELECT 
+            taldea,
+            COUNT(*) as JP,
+            SUM(CASE WHEN resultado = 'GANADO' THEN 1 ELSE 0 END) as IrP,
+            SUM(CASE WHEN resultado = 'EMPATE' THEN 1 ELSE 0 END) as BerP,
+            SUM(CASE WHEN resultado = 'PERDIDO' THEN 1 ELSE 0 END) as GaP,
+            SUM(goles_favor) as AG,
+            SUM(goles_contra) as KG,
+            (SUM(CASE WHEN resultado = 'GANADO' THEN 1 ELSE 0 END) * 2 + 
+             SUM(CASE WHEN resultado = 'EMPATE' THEN 1 ELSE 0 END)) as puntuak
+        FROM (
+            SELECT 
+                Talde_lokala as taldea, Golak_lokala as goles_favor, Golak_kanpokoak as goles_contra,
+                CASE WHEN Golak_lokala > Golak_kanpokoak THEN 'GANADO' WHEN Golak_lokala = Golak_kanpokoak THEN 'EMPATE' ELSE 'PERDIDO' END as resultado
+            FROM partidua 
+            WHERE denboraldia = '24-25' AND Golak_lokala IS NOT NULL -- Filtro clave
+            UNION ALL
+            SELECT 
+                Kampoko_taldea as taldea, Golak_kanpokoak as goles_favor, Golak_lokala as goles_contra,
+                CASE WHEN Golak_kanpokoak > Golak_lokala THEN 'GANADO' WHEN Golak_kanpokoak = Golak_lokala THEN 'EMPATE' ELSE 'PERDIDO' END as resultado
+            FROM partidua 
+            WHERE denboraldia = '24-25' AND Golak_lokala IS NOT NULL
+        ) as t
+        GROUP BY taldea
+        ORDER BY puntuak DESC, (AG - KG) DESC;
+    END IF;
+
+    -- Lógica para la temporada 25-26
+    IF `temporada_in` = '25-26' THEN
+        DELETE FROM `sailkapena_25_26`;
+        INSERT INTO `sailkapena_25_26` (taldea, JP, IrP, BerP, GaP, AG, KG, puntuak)
+        SELECT 
+            taldea,
+            COUNT(*) as JP,
+            SUM(CASE WHEN resultado = 'GANADO' THEN 1 ELSE 0 END) as IrP,
+            SUM(CASE WHEN resultado = 'EMPATE' THEN 1 ELSE 0 END) as BerP,
+            SUM(CASE WHEN resultado = 'PERDIDO' THEN 1 ELSE 0 END) as GaP,
+            SUM(goles_favor) as AG,
+            SUM(goles_contra) as KG,
+            (SUM(CASE WHEN resultado = 'GANADO' THEN 1 ELSE 0 END) * 2 + 
+             SUM(CASE WHEN resultado = 'EMPATE' THEN 1 ELSE 0 END)) as puntuak
+        FROM (
+            SELECT 
+                Talde_lokala as taldea, Golak_lokala as goles_favor, Golak_kanpokoak as goles_contra,
+                CASE WHEN Golak_lokala > Golak_kanpokoak THEN 'GANADO' WHEN Golak_lokala = Golak_kanpokoak THEN 'EMPATE' ELSE 'PERDIDO' END as resultado
+            FROM partidua 
+            WHERE denboraldia = '25-26' AND Golak_lokala IS NOT NULL -- IMPORTANTE: Solo cuenta si hay goles
+            UNION ALL
+            SELECT 
+                Kampoko_taldea as taldea, Golak_kanpokoak as goles_favor, Golak_lokala as goles_contra,
+                CASE WHEN Golak_kanpokoak > Golak_lokala THEN 'GANADO' WHEN Golak_kanpokoak = Golak_lokala THEN 'EMPATE' ELSE 'PERDIDO' END as resultado
+            FROM partidua 
+            WHERE denboraldia = '25-26' AND Golak_lokala IS NOT NULL
+        ) as t
+        GROUP BY taldea
+        ORDER BY puntuak DESC, (AG - KG) DESC;
+    END IF;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -146,7 +216,7 @@ INSERT INTO `jokalaria` (`NANa`, `Izen_abizena`, `Dortsala`, `Posizioa`, `Jaiotz
 ('40000012L', 'Bittor Egurrola', 4, 'Ezkerraldeko hegala', '2005-07-18', 'Berango Urduliz'),
 ('40000013M', 'Erlantz Gabantxo', 12, 'Eskuineko hegala', '2007-03-10', 'Berango Urduliz'),
 ('40000014N', 'Jagoba Gurtubay', 18, 'Eskuineko laterala', '1999-05-25', 'Berango Urduliz'),
-('50000001A', 'Unai Arregi Ugarte', 1, 'Atezaina', '2000-05-12', 'Aloña Mendi'),
+('50000001A', 'Jose Barrenetxea Uriarte', 1, 'Atezaina', '2000-05-11', 'Aloña Mendi'),
 ('50000002B', 'Beñat Arrasate Igartua', 10, 'Pibotea', '2003-11-20', 'Aloña Mendi'),
 ('50000003C', 'Iker Casillas Vazquez', 5, 'Zentrala', '2004-03-15', 'Aloña Mendi'),
 ('50000004D', 'Andoni Zumalde Guridi', 8, 'Ezkerraldeko laterala', '2006-08-10', 'Aloña Mendi'),
@@ -231,36 +301,61 @@ INSERT INTO `partidua` (`id_auto`, `kod_partidua`, `denboraldia`, `Data`, `Ordua
 (28, 'J 10 - 24-25', '24-25', '2024-12-07', '16:30:00', 28, 25, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', 'Jon Urkidi', 'Ane Mendizabal'),
 (29, 'J 10 - 24-25', '24-25', '2024-12-07', '18:15:00', 23, 22, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Escolapios', 'Kepa Arrate', 'Maider Elorriaga'),
 (30, 'J 10 - 24-25', '24-25', '2024-12-07', '20:00:00', 31, 29, 'Polideportivo Rekalde', 'San Adrian', 'Aloña Mendi', 'Unai Goikoetxea', 'Itziar Agirre'),
-(31, 'J 1 - 25-26', '25-26', '2025-10-04', '16:30:00', 28, 24, 'Polideportivo Rekalde', 'San Adrian', 'Amezti Zarautz', 'Jon Urkidi', 'Ane Mendizabal'),
-(32, 'J 1 - 25-26', '25-26', '2025-10-04', '18:15:00', 21, 21, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Aloña Mendi', 'Kepa Arrate', 'Maider Elorriaga'),
-(33, 'J 1 - 25-26', '25-26', '2025-10-04', '20:00:00', 19, 32, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Berango Urduliz', 'Unai Goikoetxea', 'Itziar Agirre'),
-(34, 'J 2 - 25-26', '25-26', '2025-10-11', '16:30:00', 30, 28, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Irauli Bosteko', 'Kepa Arrate', 'Maider Elorriaga'),
-(35, 'J 2 - 25-26', '25-26', '2025-10-11', '18:15:00', 25, 24, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'San Adrian', 'Unai Goikoetxea', 'Itziar Agirre'),
-(36, 'J 2 - 25-26', '25-26', '2025-10-11', '20:00:00', 22, 29, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', 'Jon Urkidi', 'Ane Mendizabal'),
-(37, 'J 3 - 25-26', '25-26', '2025-10-18', '16:30:00', 27, 26, 'Polideportivo Rekalde', 'San Adrian', 'Berango Urduliz', 'Unai Goikoetxea', 'Itziar Agirre'),
-(38, 'J 3 - 25-26', '25-26', '2025-10-18', '18:15:00', 23, 30, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Amezti Zarautz', 'Jon Urkidi', 'Ane Mendizabal'),
-(39, 'J 3 - 25-26', '25-26', '2025-10-18', '20:00:00', 24, 24, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Aloña Mendi', 'Kepa Arrate', 'Maider Elorriaga'),
-(40, 'J 4 - 25-26', '25-26', '2025-10-25', '16:30:00', 0, 0, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Aloña Mendi', 'Jon Urkidi', 'Ane Mendizabal'),
-(41, 'J 4 - 25-26', '25-26', '2025-10-25', '18:15:00', 0, 0, 'Polideportivo Berango', 'Berango Urduliz', 'San Adrian', 'Kepa Arrate', 'Maider Elorriaga'),
-(42, 'J 4 - 25-26', '25-26', '2025-10-25', '20:00:00', 0, 0, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Kukullaga', 'Unai Goikoetxea', 'Itziar Agirre'),
-(43, 'J 5 - 25-26', '25-26', NULL, NULL, 0, 0, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'San Adrian', NULL, NULL),
-(44, 'J 5 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Amezti Zarautz', NULL, NULL),
-(45, 'J 5 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', NULL, NULL),
-(46, 'J 6 - 25-26', '25-26', NULL, NULL, 0, 0, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'San Adrian', NULL, NULL),
-(47, 'J 6 - 25-26', '25-26', NULL, NULL, 0, 0, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Kukullaga', NULL, NULL),
-(48, 'J 6 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Berango', 'Berango Urduliz', 'Irauli Bosteko', NULL, NULL),
-(49, 'J 7 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Amezti Zarautz', NULL, NULL),
-(50, 'J 7 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Rekalde', 'San Adrian', 'Aloña Mendi', NULL, NULL),
-(51, 'J 7 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Berango Urduliz', NULL, NULL),
-(52, 'J 8 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Berango', 'Berango Urduliz', 'San Adrian', NULL, NULL),
-(53, 'J 8 - 25-26', '25-26', NULL, NULL, 0, 0, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Kukullaga', NULL, NULL),
-(54, 'J 8 - 25-26', '25-26', NULL, NULL, 0, 0, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Irauli Bosteko', NULL, NULL),
-(55, 'J 9 - 25-26', '25-26', NULL, NULL, 0, 0, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Amezti Zarautz', NULL, NULL),
-(56, 'J 9 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Rekalde', 'San Adrian', 'Berango Urduliz', NULL, NULL),
-(57, 'J 9 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Irauli Bosteko', NULL, NULL),
-(58, 'J 10 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', NULL, NULL),
-(59, 'J 10 - 25-26', '25-26', NULL, NULL, 0, 0, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Irauli Bosteko', NULL, NULL),
-(60, 'J 10 - 25-26', '25-26', NULL, NULL, 0, 0, 'Polideportivo Rekalde', 'San Adrian', 'Aloña Mendi', NULL, NULL);
+(31, 'J 1 - 25-26', '25-26', '2025-10-04', '16:30:00', NULL, NULL, 'Polideportivo Rekalde', 'San Adrian', 'Amezti Zarautz', 'Jon Urkidi', 'Ane Mendizabal'),
+(32, 'J 1 - 25-26', '25-26', '2025-10-04', '18:15:00', NULL, NULL, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Aloña Mendi', 'Kepa Arrate', 'Maider Elorriaga'),
+(33, 'J 1 - 25-26', '25-26', '2025-10-04', '20:00:00', NULL, NULL, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Berango Urduliz', 'Unai Goikoetxea', 'Itziar Agirre'),
+(34, 'J 2 - 25-26', '25-26', '2025-10-11', '16:30:00', NULL, NULL, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Irauli Bosteko', 'Kepa Arrate', 'Maider Elorriaga'),
+(35, 'J 2 - 25-26', '25-26', '2025-10-11', '18:15:00', NULL, NULL, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'San Adrian', 'Unai Goikoetxea', 'Itziar Agirre'),
+(36, 'J 2 - 25-26', '25-26', '2025-10-11', '20:00:00', NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', 'Jon Urkidi', 'Ane Mendizabal'),
+(37, 'J 3 - 25-26', '25-26', '2025-10-18', '16:30:00', NULL, NULL, 'Polideportivo Rekalde', 'San Adrian', 'Berango Urduliz', 'Unai Goikoetxea', 'Itziar Agirre'),
+(38, 'J 3 - 25-26', '25-26', '2025-10-18', '18:15:00', NULL, NULL, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Amezti Zarautz', 'Jon Urkidi', 'Ane Mendizabal'),
+(39, 'J 3 - 25-26', '25-26', '2025-10-18', '20:00:00', NULL, NULL, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Aloña Mendi', 'Kepa Arrate', 'Maider Elorriaga'),
+(40, 'J 4 - 25-26', '25-26', '2025-10-25', '16:30:00', NULL, NULL, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Aloña Mendi', 'Jon Urkidi', 'Ane Mendizabal'),
+(41, 'J 4 - 25-26', '25-26', '2025-10-25', '18:15:00', NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'San Adrian', 'Kepa Arrate', 'Maider Elorriaga'),
+(42, 'J 4 - 25-26', '25-26', '2025-10-25', '20:00:00', NULL, NULL, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Kukullaga', 'Unai Goikoetxea', 'Itziar Agirre'),
+(43, 'J 5 - 25-26', '25-26', '2025-11-01', '20:00:00', NULL, NULL, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'San Adrian', NULL, NULL),
+(44, 'J 5 - 25-26', '25-26', '2025-11-01', NULL, NULL, NULL, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Amezti Zarautz', NULL, NULL),
+(45, 'J 5 - 25-26', '25-26', '2025-11-01', NULL, NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', NULL, NULL),
+(46, 'J 6 - 25-26', '25-26', '2025-11-08', NULL, NULL, NULL, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'San Adrian', NULL, NULL),
+(47, 'J 6 - 25-26', '25-26', '2025-11-08', NULL, NULL, NULL, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Kukullaga', NULL, NULL),
+(48, 'J 6 - 25-26', '25-26', '2025-11-08', NULL, NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'Irauli Bosteko', NULL, NULL),
+(49, 'J 7 - 25-26', '25-26', '2025-11-15', NULL, NULL, NULL, 'Polideportivo Benta Berri', 'Irauli Bosteko', 'Amezti Zarautz', NULL, NULL),
+(50, 'J 7 - 25-26', '25-26', '2025-11-15', NULL, NULL, NULL, 'Polideportivo Rekalde', 'San Adrian', 'Aloña Mendi', NULL, NULL),
+(51, 'J 7 - 25-26', '25-26', '2025-11-15', NULL, NULL, NULL, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Berango Urduliz', NULL, NULL),
+(52, 'J 8 - 25-26', '25-26', '2025-11-22', NULL, NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'San Adrian', NULL, NULL),
+(53, 'J 8 - 25-26', '25-26', '2025-11-22', NULL, NULL, NULL, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Kukullaga', NULL, NULL),
+(54, 'J 8 - 25-26', '25-26', '2025-11-22', NULL, NULL, NULL, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Irauli Bosteko', NULL, NULL),
+(55, 'J 9 - 25-26', '25-26', '2025-11-29', NULL, NULL, NULL, 'Zubikoa Kiroldegia', 'Aloña Mendi', 'Amezti Zarautz', NULL, NULL),
+(56, 'J 9 - 25-26', '25-26', '2025-11-29', NULL, NULL, NULL, 'Polideportivo Rekalde', 'San Adrian', 'Berango Urduliz', NULL, NULL),
+(57, 'J 9 - 25-26', '25-26', '2025-11-29', NULL, NULL, NULL, 'Polideportivo Municipal Etxebarri', 'Kukullaga', 'Irauli Bosteko', NULL, NULL),
+(58, 'J 10 - 25-26', '25-26', '2025-12-06', NULL, NULL, NULL, 'Polideportivo Berango', 'Berango Urduliz', 'Kukullaga', NULL, NULL),
+(59, 'J 10 - 25-26', '25-26', '2025-12-06', NULL, NULL, NULL, 'Aritzbatalde Kiroldegia', 'Amezti Zarautz', 'Irauli Bosteko', NULL, NULL),
+(60, 'J 10 - 25-26', '25-26', '2025-12-06', NULL, NULL, NULL, 'Polideportivo Rekalde', 'San Adrian', 'Aloña Mendi', NULL, NULL);
+
+--
+-- Disparadores `partidua`
+--
+DELIMITER $$
+CREATE TRIGGER `after_partidua_delete` AFTER DELETE ON `partidua` FOR EACH ROW BEGIN
+    CALL ActualizarClasificacion(OLD.denboraldia);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_partidua_insert` AFTER INSERT ON `partidua` FOR EACH ROW BEGIN
+    CALL ActualizarClasificacion(NEW.denboraldia);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_partidua_update` AFTER UPDATE ON `partidua` FOR EACH ROW BEGIN
+    CALL ActualizarClasificacion(NEW.denboraldia);
+    IF NEW.denboraldia <> OLD.denboraldia THEN
+        CALL ActualizarClasificacion(OLD.denboraldia);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -339,7 +434,7 @@ INSERT INTO `pertsona` (`NANa`, `Izen_abizena`, `Adina`, `Helbidea`, `Tlfn`, `ta
 ('40000012L', 'Bittor Egurrola', 21, 'Urduliz', '600000054', 'Berango Urduliz', 'Jokalaria'),
 ('40000013M', 'Erlantz Gabantxo', 19, 'Berango', '600000055', 'Berango Urduliz', 'Jokalaria'),
 ('40000014N', 'Jagoba Gurtubay', 27, 'Urduliz', '600000056', 'Berango Urduliz', 'Jokalaria'),
-('50000001A', 'Unai Arregi Ugarte', 26, 'Oñati', '600000057', 'Aloña Mendi', 'Jokalaria'),
+('50000001A', 'Jose Barrenetxea Uriarte', 26, 'Oñati', '600000057', 'Aloña Mendi', 'Jokalaria'),
 ('50000002B', 'Beñat Arrasate Igartua', 23, 'Oñati', '600000058', 'Aloña Mendi', 'Jokalaria'),
 ('50000003C', 'Iker Casillas Vazquez', 22, 'Oñati', '600000059', 'Aloña Mendi', 'Jokalaria'),
 ('50000004D', 'Andoni Zumalde Guridi', 20, 'Oñati', '600000060', 'Aloña Mendi', 'Jokalaria'),
@@ -431,12 +526,32 @@ CREATE TABLE `sailkapena_25_26` (
 --
 
 INSERT INTO `sailkapena_25_26` (`taldea`, `JP`, `IrP`, `BerP`, `GaP`, `AG`, `KG`, `puntuak`) VALUES
-('Aloña Mendi', 3, 1, 2, 0, 70, 69, 4),
-('Amezti Zarautz', 3, 2, 0, 1, 84, 79, 4),
-('Berango Urduliz', 3, 1, 0, 2, 80, 75, 2),
-('Irauli Bosteko', 3, 0, 1, 2, 71, 86, 1),
-('Kukullaga', 3, 1, 1, 1, 73, 73, 3),
-('San Adrian', 3, 2, 0, 1, 79, 75, 4);
+('Aloña Mendi', 0, 0, 0, 0, 0, 0, 0),
+('Amezti Zarautz', 0, 0, 0, 0, 0, 0, 0),
+('Berango Urduliz', 0, 0, 0, 0, 0, 0, 0),
+('Irauli Bosteko', 0, 0, 0, 0, 0, 0, 0),
+('Kukullaga', 0, 0, 0, 0, 0, 0, 0),
+('San Adrian', 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `season_states`
+--
+
+CREATE TABLE `season_states` (
+  `season` varchar(128) NOT NULL,
+  `started` tinyint(1) DEFAULT NULL,
+  `finalized` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `season_states`
+--
+
+INSERT INTO `season_states` (`season`, `started`, `finalized`) VALUES
+('24-25', 1, 1),
+('25-26', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -533,6 +648,12 @@ ALTER TABLE `sailkapena_24_25`
 --
 ALTER TABLE `sailkapena_25_26`
   ADD PRIMARY KEY (`taldea`);
+
+--
+-- Indices de la tabla `season_states`
+--
+ALTER TABLE `season_states`
+  ADD PRIMARY KEY (`season`);
 
 --
 -- Indices de la tabla `taldea`
